@@ -144,9 +144,15 @@ const Index: React.FC = () => {
           
           <DeparturesTable departures={departures} />
           
-          <AlertsPanel initialAlerts={initialAlerts} />
           
-          <StationMap markers={mapMarkers} />
+<div className="flex gap-15 max-md:flex-col">
+  <div className="flex-1">
+    <AlertsPanel initialAlerts={initialAlerts} />
+  </div>
+  <div className="flex-1">
+    <StationMap markers={mapMarkers} />
+  </div>
+</div>
         </main>
       </div>
     </>
