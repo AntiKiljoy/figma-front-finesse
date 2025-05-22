@@ -1,7 +1,10 @@
+
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { Settings, HelpCircle } from 'lucide-react';
 
 export const Sidebar: React.FC = () => {
+  const location = useLocation();
   const navItems = [
     { name: 'Home', path: '/' },
     { name: 'Events', path: '/events' },
@@ -17,26 +20,33 @@ export const Sidebar: React.FC = () => {
         className="w-[154px] h-[73px] mx-[17px] my-2.5"
         alt="LNER"
       />
-      <nav className="flex flex-col gap-3 mt-[101px] max-md:mt-5">
-        {navItems.map((item) => (
-          <Link 
-            key={item.name}
-            to={item.path} 
-            className="text-2xl text-center bg-white px-0 py-1 rounded-[7px]"
-          >
-            {item.name}
-          </Link>
-        ))}
+      <nav className="flex flex-col gap-3 mt-[60px] max-md:mt-5">
+        {navItems.map((item) => {
+          const isActive = location.pathname === item.path;
+          return (
+            <Link 
+              key={item.name}
+              to={item.path} 
+              className={`text-xl font-semibold text-center px-5 py-2 rounded-[7px] transition-colors ${
+                isActive 
+                ? 'bg-[#d50032] text-white' 
+                : 'bg-white hover:bg-gray-100'
+              }`}
+            >
+              {item.name}
+            </Link>
+          );
+        })}
       </nav>
-      <div className="flex flex-col gap-1 mt-auto">
-        <div className="flex items-center gap-1 text-base">
-          <i className="ti ti-settings" />
+      <div className="flex flex-col gap-3 mt-auto">
+        <button className="flex items-center gap-2 text-base font-medium px-4 py-2 rounded-md hover:bg-[#c9c9c9] transition-colors">
+          <Settings size={18} />
           <span>Settings</span>
-        </div>
-        <div className="flex items-center gap-1 text-base">
-          <i className="ti ti-help" />
+        </button>
+        <button className="flex items-center gap-2 text-base font-medium px-4 py-2 rounded-md hover:bg-[#c9c9c9] transition-colors">
+          <HelpCircle size={18} />
           <span>Help</span>
-        </div>
+        </button>
       </div>
     </aside>
   );
